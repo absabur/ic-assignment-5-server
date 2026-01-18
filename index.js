@@ -15,7 +15,7 @@ const middlewares = jsonServer.defaults({
 
 const allowedOrigins = [
   'http://localhost:5173',          // Your local React (Vite) URL
-  'https://ic-assignment-5.vercel.app'    // Your live React URL
+  'https://ic-assignment-5.netlify.app'    // Your live React URL
 ];
 
 // 2. Configure CORS options
