@@ -1,5 +1,6 @@
 import jsonServer from 'json-server';
 import path from 'path';
+import cors from cors;
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -12,6 +13,27 @@ const middlewares = jsonServer.defaults({
   static: './' 
 });
 
+const allowedOrigins = [
+  'http://localhost:5173',          // Your local React (Vite) URL
+  'https://ic-assignment-5.vercel.app'    // Your live React URL
+];
+
+// 2. Configure CORS options
+const corsOptions = {
+  origin: (origin, callback) => {
+    // allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+};
+
+// 3. Apply the middleware
+server.use(cors(corsOptions));
 const port = process.env.PORT || 3001;
 
 server.use(middlewares);
